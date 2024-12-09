@@ -1,0 +1,4 @@
+﻿  main.cpp
+F:\Programowanie\ImGuiApps\MojPierwszyRaz\examples\example_win32_directx12\main.cpp(132,10): warning C4189: "show_demo_window": lokalna zmienna jest zainicjowana, ale nie ma odwołania
+F:\Programowanie\ImGuiApps\MojPierwszyRaz\examples\example_win32_directx12\main.cpp(133,10): warning C4189: "show_another_window": lokalna zmienna jest zainicjowana, ale nie ma odwołania
+  example_win32_directx12.vcxproj -> F:\Programowanie\ImGuiApps\MojPierwszyRaz\examples\example_win32_directx12\Debug\example_win32_directx12.exe

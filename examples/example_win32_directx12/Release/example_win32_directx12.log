@@ -1,0 +1,20 @@
+﻿  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  imgui_impl_dx12.cpp
+  imgui_impl_win32.cpp
+  Aplikacja.cpp
+  main.cpp
+D:\Projekt\examples\example_win32_directx12\main.cpp(68,26): warning C4100: "nShowCmd": parametr formalny, do którego nie istnieje odwołanie
+D:\Projekt\examples\example_win32_directx12\main.cpp(67,26): warning C4100: "lpCmdLine": parametr formalny, do którego nie istnieje odwołanie
+D:\Projekt\examples\example_win32_directx12\main.cpp(66,26): warning C4100: "hPrevInstance": parametr formalny, do którego nie istnieje odwołanie
+D:\Projekt\examples\example_win32_directx12\main.cpp(65,26): warning C4100: "hInstance": parametr formalny, do którego nie istnieje odwołanie
+D:\Projekt\examples\example_win32_directx12\main.cpp(136,10): warning C4189: "show_demo_window": lokalna zmienna jest zainicjowana, ale nie ma odwołania
+D:\Projekt\examples\example_win32_directx12\main.cpp(137,10): warning C4189: "show_another_window": lokalna zmienna jest zainicjowana, ale nie ma odwołania
+  Trwa generowanie kodu
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 2091 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Zakończono generowanie kodu
+  example_win32_directx12.vcxproj -> D:\Projekt\examples\example_win32_directx12\Release\example_win32_directx12.exe

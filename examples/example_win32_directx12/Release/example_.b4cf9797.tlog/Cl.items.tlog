@@ -1,0 +1,9 @@
+D:\Projekt\imgui.cpp;D:\Projekt\examples\example_win32_directx12\Release\imgui.obj
+D:\Projekt\imgui_demo.cpp;D:\Projekt\examples\example_win32_directx12\Release\imgui_demo.obj
+D:\Projekt\imgui_draw.cpp;D:\Projekt\examples\example_win32_directx12\Release\imgui_draw.obj
+D:\Projekt\imgui_tables.cpp;D:\Projekt\examples\example_win32_directx12\Release\imgui_tables.obj
+D:\Projekt\imgui_widgets.cpp;D:\Projekt\examples\example_win32_directx12\Release\imgui_widgets.obj
+D:\Projekt\backends\imgui_impl_dx12.cpp;D:\Projekt\examples\example_win32_directx12\Release\imgui_impl_dx12.obj
+D:\Projekt\backends\imgui_impl_win32.cpp;D:\Projekt\examples\example_win32_directx12\Release\imgui_impl_win32.obj
+D:\Projekt\examples\example_win32_directx12\Aplikacja.cpp;D:\Projekt\examples\example_win32_directx12\Release\Aplikacja.obj
+D:\Projekt\examples\example_win32_directx12\main.cpp;D:\Projekt\examples\example_win32_directx12\Release\main.obj

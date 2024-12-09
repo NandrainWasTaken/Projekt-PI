@@ -1,0 +1,2 @@
+F:\Programowanie\ImGuiApps\MojPierwszyRaz\examples\example_win32_directx12\Release\example_win32_directx12.exe
+D:\Projekt\examples\example_win32_directx12\Release\example_win32_directx12.exe
