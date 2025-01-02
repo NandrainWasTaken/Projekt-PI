@@ -9,6 +9,8 @@
 #include "sstream"
 #include "vector"
 #include "filesystem"
+#include "algorithm"
+#include "functional"
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -46,7 +48,7 @@ struct CarAttributes {
     char Emisja_Co2[128] = "";
     char Masa[128] = "";
 };
-
+std::vector<CarAttributes> cars;
 
 namespace MojaApka
 {
@@ -90,6 +92,32 @@ namespace MojaApka
         // glGenTextures(1, &tex_id);
         // glBindTexture(GL_TEXTURE_2D, tex_id);
         // glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex_width, tex_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex_pixels);
+    }
+
+    int partition(std::vector<CarAttributes>& cars, int low, int high,
+        const std::function<bool(const CarAttributes&, const CarAttributes&)>& comparator) {
+
+        CarAttributes pivot = cars[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; ++j) {
+            if (comparator(cars[j], pivot)) {
+                ++i;
+                std::swap(cars[i], cars[j]);
+            }
+        }
+        std::swap(cars[i + 1], cars[high]);
+        return i + 1;
+    }
+
+    void quicksort(std::vector<CarAttributes>& cars, int low, int high,
+        const std::function<bool(const CarAttributes&, const CarAttributes&)>& comparator) {
+
+        if (low < high) {
+            int pivotIndex = partition(cars, low, high, comparator);
+            quicksort(cars, low, pivotIndex - 1, comparator);
+            quicksort(cars, pivotIndex + 1, high, comparator);
+        }
     }
 
     static bool refresh_files = true;
@@ -157,7 +185,7 @@ namespace MojaApka
 
         static bool show_search = false;
         static bool show_profile = false;
-        static bool show_sort = false;
+        static bool show_filtersort = false;
         static bool show_add = false;
 
         if (show_search == true)
@@ -171,23 +199,22 @@ namespace MojaApka
 
             // Wczytywanie zawartoœci wielu plików
             static const std::string folder_path = "G:\\Project_PI_FINAL\\Projekt-PI\\examples\\example_win32_directx12\\Baza danych\\Dane\\"; //Baza danych\\Dane
-            static std::string file_content = "";
+            static std::vector<std::string> lines;
 
             if (refresh_files) {
-                file_content.clear();
+                lines.clear();
                 for (const auto& entry : fs::directory_iterator(folder_path)) {
                     if (entry.is_regular_file()) {
                         std::ifstream file(entry.path().string());
                         if (file.is_open()) {
                             std::string line;
+                            std::string concatenated_line;
                             while (std::getline(file, line)) {
-                                file_content += line + " | ";
+                                concatenated_line += line + " | ";
                             }
+                            lines.push_back(concatenated_line); // Push the full line to the vector
                             file.close();
-                            file_content += "\n"; // Separator miêdzy plikami
-                        }
-                        else {
-                            file_content += "Nie mo¿na otworzyc pliku: " + entry.path().string() + "\n";
+                        
                         }
                     }
                 }
@@ -209,7 +236,6 @@ namespace MojaApka
                 }
             }
 
-            // Dodanie InputText z placeholderem
             ImGui::Text("Co chcesz wyszukac?");
             if (ImGui::InputText("##InputFiled", tekst, IM_ARRAYSIZE(tekst), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
             {
@@ -220,17 +246,91 @@ namespace MojaApka
                 wyswietlany_tekst = tekst;
             }
 
-            if (ImGui::Button("Filtruj")) {
-                show_sort = true;
-                ImGui::SetWindowFocus("Filtruj");
+            if (ImGui::Button("Filtruj i sortuj")) {
+                show_filtersort = true;
+                ImGui::SetWindowFocus("Filtruj i sortuj");
             }
 
-            if (show_sort == true) {
-                ImGui::Begin("Filtruj", &show_sort);
+            if (show_filtersort == true) {
+                ImGui::Begin("Filtruj i sortuj", &show_filtersort);
+
+                static int selected_sort_option = -1; // -1 means no option selected
+
+                ImGui::Text("Wybierz jak chcesz posortowac \nsamochody:");
+
+                ImGui::RadioButton("Liczba miejsc, rosnaco", &selected_sort_option, 1);
+                ImGui::RadioButton("Liczba miejsc, malejaco", &selected_sort_option, 2);
+                ImGui::RadioButton("Producent A-Z", &selected_sort_option, 3);
+                ImGui::RadioButton("Producent Z-A", &selected_sort_option, 4);
+                ImGui::RadioButton("Model A-Z", &selected_sort_option, 5);
+                ImGui::RadioButton("Model Z-A", &selected_sort_option, 6);
+                ImGui::RadioButton("Generacja, rosnaco", &selected_sort_option, 7);
+                ImGui::RadioButton("Generacja, malejaco", &selected_sort_option, 8);
+                ImGui::RadioButton("Moc, rosnaco", &selected_sort_option, 9);
+                ImGui::RadioButton("Moc, malejaco", &selected_sort_option, 10);
+
+                if (ImGui::Button("Zastosuj")) {
+                    if (selected_sort_option != -1) {
+                        switch (selected_sort_option) {
+                        case 1:
+                            quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
+                                return std::stoi(a.Liczba_miejsc) < std::stoi(b.Liczba_miejsc);
+                                });
+                            break;
+                        case 2:
+                            quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
+                                return std::stoi(a.Liczba_miejsc) > std::stoi(b.Liczba_miejsc);
+                                });
+                            break;
+                        case 3:
+                            quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
+                                return std::string(a.Marka) < std::string(b.Marka);
+                                });
+                            break;
+                        case 4:
+                            quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
+                                return std::string(a.Marka) > std::string(b.Marka);
+                                });
+                            break;
+                        case 5:
+                            quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
+                                return std::string(a.Model) < std::string(b.Model);
+                                });
+                            break;
+                        case 6:
+                            quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
+                                return std::string(a.Model) > std::string(b.Model);
+                                });
+                            break;
+                        case 7:
+                            quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
+                                return std::string(a.Generacja) < std::string(b.Generacja);
+                                });
+                            break;
+                        case 8:
+                            quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
+                                return std::string(a.Generacja) > std::string(b.Generacja);
+                                });
+                            break;
+                        case 9:
+                            quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
+                                return std::stoi(a.Moc_silnika) < std::stoi(b.Moc_silnika);
+                                });
+                            break;
+                        case 10:
+                            quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
+                                return std::stoi(a.Moc_silnika) > std::stoi(b.Moc_silnika);
+                                });
+                            break;
+                        }
+                        refresh_files = true;
+                    }
+                }
 
                 if (ImGui::Button("Wroc"))
                 {
-                    show_sort = false;
+                    show_filtersort = false;
+                    selected_sort_option = -1;
                 }
 
                 ImGui::End();
@@ -416,16 +516,16 @@ namespace MojaApka
             // Filtrowanie zawartoœci pliku na podstawie wyszukiwanego tekstu
             ImGui::Separator();
             if (!wyswietlany_tekst.empty()) {
-                std::istringstream file_stream(file_content);
-                std::string line;
-                while (std::getline(file_stream, line)) {
+                for (const auto& line : lines) {
                     if (line.find(wyswietlany_tekst) != std::string::npos) {
                         ImGui::TextUnformatted(line.c_str());
                     }
                 }
             }
             else {
-                ImGui::TextUnformatted(file_content.c_str());
+                for (const auto& line : lines) {
+                    ImGui::TextUnformatted(line.c_str());
+                }
             }
             //ImGui::TextUnformatted(file_content.c_str());
 
