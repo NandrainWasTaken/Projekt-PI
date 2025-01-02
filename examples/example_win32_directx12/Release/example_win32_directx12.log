@@ -1,20 +1,27 @@
-﻿  imgui.cpp
-  imgui_demo.cpp
-  imgui_draw.cpp
-  imgui_tables.cpp
-  imgui_widgets.cpp
-  imgui_impl_dx12.cpp
-  imgui_impl_win32.cpp
-  Aplikacja.cpp
-  main.cpp
-D:\Projekt\examples\example_win32_directx12\main.cpp(68,26): warning C4100: "nShowCmd": parametr formalny, do którego nie istnieje odwołanie
-D:\Projekt\examples\example_win32_directx12\main.cpp(67,26): warning C4100: "lpCmdLine": parametr formalny, do którego nie istnieje odwołanie
-D:\Projekt\examples\example_win32_directx12\main.cpp(66,26): warning C4100: "hPrevInstance": parametr formalny, do którego nie istnieje odwołanie
-D:\Projekt\examples\example_win32_directx12\main.cpp(65,26): warning C4100: "hInstance": parametr formalny, do którego nie istnieje odwołanie
-D:\Projekt\examples\example_win32_directx12\main.cpp(136,10): warning C4189: "show_demo_window": lokalna zmienna jest zainicjowana, ale nie ma odwołania
-D:\Projekt\examples\example_win32_directx12\main.cpp(137,10): warning C4189: "show_another_window": lokalna zmienna jest zainicjowana, ale nie ma odwołania
+﻿  Aplikacja.cpp
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x118, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x119, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x11f, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x157, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x15b, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x17c, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x17f, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x225, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x22c, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x22f, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x23e, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x326, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x32b, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x32f, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x335, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x382, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x394, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x16f9, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(18,32): warning C4129: „P”: nierozpoznana sekwencja ucieczki znaków
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(18,32): warning C4129: „O”: nierozpoznana sekwencja ucieczki znaków
   Trwa generowanie kodu
-  Previous IPDB was built with incompatible compiler, fall back to full compilation.
-  All 2091 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  0 of 1921 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Zakończono generowanie kodu
-  example_win32_directx12.vcxproj -> D:\Projekt\examples\example_win32_directx12\Release\example_win32_directx12.exe
+  example_win32_directx12.vcxproj -> F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Release\example_win32_directx12.exe
