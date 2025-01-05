@@ -2,5 +2,5 @@
 
 namespace MojaApka
 {
-    void RenderUI(); 
+    void RenderUI();
 }

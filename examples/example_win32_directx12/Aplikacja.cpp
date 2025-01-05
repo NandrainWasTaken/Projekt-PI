@@ -15,88 +15,44 @@
 using namespace std;
 namespace fs = std::filesystem;
 
-
 struct CarAttributes {
-    char Marka[128] = "";
-    char Model[128] = "";
-    char Generacja[128] = "";
-    char Nadwozie[128] = "";
-    char Liczba_miejsc[128] = "";
-    char Srednica_zawracania[128] = "";
-    char Dlugosc[128] = "";
-    char Szerokosc[128] = "";
-    char Wysokosc[128] = "";
-    char Rozstaw_osi[128] = "";
-    char Przeswit[128] = "";
-    char Pojemnosc_Bagaznika[128] = "";
-    char Pojemnosc_Silnika[128] = "";
-    char Typ_silnika[128] = "";
-    char Moc_silnika[128] = "";
-    char Moment_obrotowy_silnika[128] = "";
-    char Montaz_silnika[128] = "";
-    char Doladowanie[128] = "";
-    char Liczba_cylindrow[128] = "";
-    char Rodzaj_wtrysku[128] = "";
-    char Rodzaj_skrzyni_biegow[128] = "";
-    char Liczba_biegow[128] = "";
-    char Naped[128] = "";
-    char Predkosc_maksymalna[128] = "";
-    char Przyspieszenie[128] = "";
-    char Srednie_spalanie[128] = "";
-    char Pojemnosc_zbiornika_paliwa[128] = "";
-    char Zasieg[128] = "";
-    char Emisja_Co2[128] = "";
-    char Masa[128] = "";
+    std::string Marka = "";
+    std::string Model = "";
+    int Generacja = 0;
+    std::string Nadwozie = "";
+    int Liczba_miejsc = 0;
+    double Srednica_zawracania = 0.0;
+    double Dlugosc = 0.0;
+    double Szerokosc = 0.0;
+    double Wysokosc = 0.0;
+    double Rozstaw_osi = 0.0;
+    double Przeswit = 0.0;
+    double Pojemnosc_Bagaznika = 0.0;
+    double Pojemnosc_Silnika = 0.0;
+    std::string Typ_silnika = "";
+    double Moc_silnika = 0.0;
+    double Moment_obrotowy_silnika = 0.0;
+    std::string Montaz_silnika = "";
+    std::string Doladowanie = "";
+    int Liczba_cylindrow = 0;
+    std::string Rodzaj_wtrysku = "";
+    std::string Rodzaj_skrzyni_biegow = "";
+    int Liczba_biegow = 0;
+    std::string Naped = "";
+    double Predkosc_maksymalna = 0.0;
+    double Przyspieszenie = 0.0;
+    double Srednie_spalanie = 0.0;
+    double Pojemnosc_zbiornika_paliwa = 0.0;
+    double Zasieg = 0.0;
+    double Emisja_Co2 = 0.0;
+    double Masa = 0.0;
 };
 std::vector<CarAttributes> cars;
 
 namespace MojaApka
 {
-    const ImWchar* GetPolishGlyphRanges() {
-        static const ImWchar polish_ranges[] = {
-            0x0020, 0xFFFF, // Pe³ny zakres znaków Unicode
-            0
-        };
-        return polish_ranges;
-    }
-
-    void SetupImGuiWithFont()
-    {
-        ImGuiIO& io = ImGui::GetIO();
-
-        // Opcjonalnie wyczyœæ domyœlne czcionki
-        io.Fonts->Clear();
-
-        // Œcie¿ka do pliku czcionki (upewnij siê, ¿e wskazuje na odpowiedni plik .ttf)
-        const char* fontPath = "G:\\Project_PI_FINAL\\Projekt-PI\\examples\\example_win32_directx12\\OpenSans-VariableFont_wdth,wght.ttf";
-
-        ImFontConfig font_cfg;
-        font_cfg.OversampleH = 3; // Lepsza jakoœæ pozioma
-        font_cfg.OversampleV = 1; // Lepsza jakoœæ pionowa
-
-        // Dodaj czcionkê z pe³nym zakresem znaków Unicode
-        ImFont* font = io.Fonts->AddFontFromFileTTF(fontPath, 16.0f, &font_cfg, GetPolishGlyphRanges());
-        if (!font)
-        {
-            cerr << "Nie uda³o siê za³adowaæ czcionki: " << fontPath << endl;
-        }
-
-        // Zbuduj atlas czcionek
-        unsigned char* tex_pixels = nullptr;
-        int tex_width, tex_height;
-        io.Fonts->GetTexDataAsRGBA32(&tex_pixels, &tex_width, &tex_height);
-
-        // Mo¿esz tutaj przes³aæ dane tekstury do GPU, jeœli to konieczne dla renderera
-        // Przyk³ad dla OpenGL:
-        // GLuint tex_id;
-        // glGenTextures(1, &tex_id);
-        // glBindTexture(GL_TEXTURE_2D, tex_id);
-        // glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex_width, tex_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex_pixels);
-    }
-
     int partition(std::vector<CarAttributes>& cars, int low, int high,
         const std::function<bool(const CarAttributes&, const CarAttributes&)>& comparator) {
-
         CarAttributes pivot = cars[high];
         int i = low - 1;
 
@@ -112,7 +68,6 @@ namespace MojaApka
 
     void quicksort(std::vector<CarAttributes>& cars, int low, int high,
         const std::function<bool(const CarAttributes&, const CarAttributes&)>& comparator) {
-
         if (low < high) {
             int pivotIndex = partition(cars, low, high, comparator);
             quicksort(cars, low, pivotIndex - 1, comparator);
@@ -190,50 +145,81 @@ namespace MojaApka
 
         if (show_search == true)
         {
-            ImGui::Begin("Wyszukiwarka", &show_search, ImGuiWindowFlags_HorizontalScrollbar);
+            ImGui::Begin("Wyszukiwarka", &show_search);
 
             ImGui::Text("Witaj w naszej bazie danych!");
-            ImGui::Text("Test polskich znaków: ¹, æ, ê, ³, ñ, ó, œ, Ÿ, ¿");
+            //ImGui::Text("Test polskich znaków: ¹, æ, ê, ³, ñ, ó, œ, Ÿ, ¿");
             static char tekst[128] = "";
             static string wyswietlany_tekst = "";
 
             // Wczytywanie zawartoœci wielu plików
-            static const std::string folder_path = "G:\\Project_PI_FINAL\\Projekt-PI\\examples\\example_win32_directx12\\Baza danych\\Dane\\"; //Baza danych\\Dane
+            static const std::string folder_path = "F:\\Project_PI_FINAL\\Projekt-PI\\examples\\example_win32_directx12\\Baza danych\\Dane\\"; //Baza danych\\Dane
             static std::vector<std::string> lines;
 
             if (refresh_files) {
-                lines.clear();
+                cars.clear();
                 for (const auto& entry : fs::directory_iterator(folder_path)) {
                     if (entry.is_regular_file()) {
                         std::ifstream file(entry.path().string());
                         if (file.is_open()) {
+                            CarAttributes car;
                             std::string line;
-                            std::string concatenated_line;
-                            while (std::getline(file, line)) {
-                                concatenated_line += line + " | ";
-                            }
-                            lines.push_back(concatenated_line); // Push the full line to the vector
+                            std::getline(file, car.Marka);
+                            std::getline(file, car.Model);
+                            file >> car.Generacja;
+                            file.ignore(); // Ignore newline after int
+                            std::getline(file, car.Nadwozie);
+                            file >> car.Liczba_miejsc;
+                            file.ignore();
+                            file >> car.Srednica_zawracania;
+                            file.ignore();
+                            file >> car.Dlugosc;
+                            file.ignore();
+                            file >> car.Szerokosc;
+                            file.ignore();
+                            file >> car.Wysokosc;
+                            file.ignore();
+                            file >> car.Rozstaw_osi;
+                            file.ignore();
+                            file >> car.Przeswit;
+                            file.ignore();
+                            file >> car.Pojemnosc_Bagaznika;
+                            file.ignore();
+                            file >> car.Pojemnosc_Silnika;
+                            file.ignore();
+                            std::getline(file, car.Typ_silnika);
+                            file >> car.Moc_silnika;
+                            file.ignore();
+                            file >> car.Moment_obrotowy_silnika;
+                            file.ignore();
+                            std::getline(file, car.Montaz_silnika);
+                            std::getline(file, car.Doladowanie);
+                            file >> car.Liczba_cylindrow;
+                            file.ignore();
+                            std::getline(file, car.Rodzaj_wtrysku);
+                            std::getline(file, car.Rodzaj_skrzyni_biegow);
+                            file >> car.Liczba_biegow;
+                            file.ignore();
+                            std::getline(file, car.Naped);
+                            file >> car.Predkosc_maksymalna;
+                            file.ignore();
+                            file >> car.Przyspieszenie;
+                            file.ignore();
+                            file >> car.Srednie_spalanie;
+                            file >> car.Pojemnosc_zbiornika_paliwa;
+                            file.ignore();
+                            file >> car.Zasieg;
+                            file.ignore();
+                            file >> car.Emisja_Co2;
+                            file >> car.Masa;
+                            file.ignore();
+
+                            cars.push_back(car);
                             file.close();
-                        
                         }
                     }
                 }
                 refresh_files = false;
-            }
-
-            static std::string file_kryteria = "";
-            if (file_kryteria.empty()) {
-                std::ifstream file("G:\\Project_PI_FINAL\\Projekt-PI\\examples\\example_win32_directx12\\Baza danych\\kryteria.txt");
-                if (file.is_open()) {
-                    std::string line;
-                    while (std::getline(file, line)) {
-                        file_kryteria += line + " | "; // Dodaj now¹ liniê po ka¿dym wierszu
-                    }
-                    file.close();
-                }
-                else {
-                    file_kryteria = "Nie mo¿na otworzyc pliku.";
-                }
             }
 
             ImGui::Text("Co chcesz wyszukac?");
@@ -272,60 +258,61 @@ namespace MojaApka
                 if (ImGui::Button("Zastosuj")) {
                     if (selected_sort_option != -1) {
                         switch (selected_sort_option) {
-                        case 1:
+                        case 1: // Liczba miejsc, rosn¹co
                             quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
-                                return std::stoi(a.Liczba_miejsc) < std::stoi(b.Liczba_miejsc);
+                                return a.Liczba_miejsc < b.Liczba_miejsc;
                                 });
                             break;
-                        case 2:
+                        case 2: // Liczba miejsc, malej¹co
                             quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
-                                return std::stoi(a.Liczba_miejsc) > std::stoi(b.Liczba_miejsc);
+                                return a.Liczba_miejsc > b.Liczba_miejsc;
                                 });
                             break;
-                        case 3:
+                        case 3: // Producent A-Z (Marka)
                             quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
-                                return std::string(a.Marka) < std::string(b.Marka);
+                                return a.Marka < b.Marka;
                                 });
                             break;
-                        case 4:
+                        case 4: // Producent Z-A (Marka)
                             quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
-                                return std::string(a.Marka) > std::string(b.Marka);
+                                return a.Marka > b.Marka;
                                 });
                             break;
-                        case 5:
+                        case 5: // Model A-Z
                             quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
-                                return std::string(a.Model) < std::string(b.Model);
+                                return a.Model < b.Model;
                                 });
                             break;
-                        case 6:
+                        case 6: // Model Z-A
                             quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
-                                return std::string(a.Model) > std::string(b.Model);
+                                return a.Model > b.Model;
                                 });
                             break;
-                        case 7:
+                        case 7: // Generacja rosn¹co
                             quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
-                                return std::string(a.Generacja) < std::string(b.Generacja);
+                                return a.Generacja < b.Generacja;
                                 });
                             break;
-                        case 8:
+                        case 8: // Generacja malej¹co
                             quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
-                                return std::string(a.Generacja) > std::string(b.Generacja);
+                                return a.Generacja > b.Generacja;
                                 });
                             break;
-                        case 9:
+                        case 9: // Moc silnika rosn¹co
                             quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
-                                return std::stoi(a.Moc_silnika) < std::stoi(b.Moc_silnika);
+                                return a.Moc_silnika < b.Moc_silnika;
                                 });
                             break;
-                        case 10:
+                        case 10: // Moc silnika malej¹co
                             quicksort(cars, 0, cars.size() - 1, [](const CarAttributes& a, const CarAttributes& b) {
-                                return std::stoi(a.Moc_silnika) > std::stoi(b.Moc_silnika);
+                                return a.Moc_silnika > b.Moc_silnika;
                                 });
                             break;
                         }
-                        refresh_files = true;
                     }
                 }
+
+                //Filtrowanie !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
                 if (ImGui::Button("Wroc"))
                 {
@@ -347,104 +334,154 @@ namespace MojaApka
                 static CarAttributes carAttributes;
 
                 ImGui::Text("Marka:");
-                ImGui::InputText("##Marka", carAttributes.Marka, IM_ARRAYSIZE(carAttributes.Marka), ImGuiInputTextFlags_CharsNoBlank);
+                static char marka_buffer[128];
+                strcpy(marka_buffer, carAttributes.Marka.c_str());
+                if (ImGui::InputText("##Marka", marka_buffer, IM_ARRAYSIZE(marka_buffer))) {
+                    carAttributes.Marka = marka_buffer;
+                }
 
                 ImGui::Text("Model:");
-                ImGui::InputText("##Model", carAttributes.Model, IM_ARRAYSIZE(carAttributes.Model), ImGuiInputTextFlags_CharsNoBlank);
+                static char model_buffer[128];
+                strcpy(model_buffer, carAttributes.Model.c_str());
+                if (ImGui::InputText("##Model", model_buffer, IM_ARRAYSIZE(model_buffer))) {
+                    carAttributes.Model = model_buffer;
+                }
 
                 ImGui::Text("Generacja:");
-                ImGui::InputText("##Generacja", carAttributes.Generacja, IM_ARRAYSIZE(carAttributes.Generacja), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputInt("##Generacja", &carAttributes.Generacja);
 
                 ImGui::Text("Nadwozie:");
-                ImGui::InputText("##Nadwozie", carAttributes.Nadwozie, IM_ARRAYSIZE(carAttributes.Nadwozie), ImGuiInputTextFlags_CharsNoBlank);
+                static char nadwozie_buffer[128];
+                strcpy(nadwozie_buffer, carAttributes.Nadwozie.c_str());
+                if (ImGui::InputText("##Nadwozie", nadwozie_buffer, IM_ARRAYSIZE(nadwozie_buffer))) {
+                    carAttributes.Nadwozie = nadwozie_buffer;
+                }
 
                 ImGui::Text("Liczba miejsc:");
-                ImGui::InputText("##Liczba_miejsc", carAttributes.Liczba_miejsc, IM_ARRAYSIZE(carAttributes.Liczba_miejsc), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputInt("##Liczba_miejsc", &carAttributes.Liczba_miejsc);
 
                 ImGui::Text("Srednica zawracania:");
-                ImGui::InputText("##Srednica_zawracania", carAttributes.Srednica_zawracania, IM_ARRAYSIZE(carAttributes.Srednica_zawracania), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Srednica_zawracania", &carAttributes.Srednica_zawracania);
 
                 ImGui::Text("Dlugosc:");
-                ImGui::InputText("##Dlugosc", carAttributes.Dlugosc, IM_ARRAYSIZE(carAttributes.Dlugosc), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Dlugosc", &carAttributes.Dlugosc);
 
                 ImGui::Text("Szerokosc:");
-                ImGui::InputText("##Szerokosc", carAttributes.Szerokosc, IM_ARRAYSIZE(carAttributes.Szerokosc), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Szerokosc", &carAttributes.Szerokosc);
 
                 ImGui::Text("Wysokosc:");
-                ImGui::InputText("##Wysokosc", carAttributes.Wysokosc, IM_ARRAYSIZE(carAttributes.Wysokosc), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Wysokosc", &carAttributes.Wysokosc);
 
                 ImGui::Text("Rozstaw osi:");
-                ImGui::InputText("##Rozstaw_osi", carAttributes.Rozstaw_osi, IM_ARRAYSIZE(carAttributes.Rozstaw_osi), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Rozstaw_osi", &carAttributes.Rozstaw_osi);
 
                 ImGui::Text("Przeswit:");
-                ImGui::InputText("##Przeswit", carAttributes.Przeswit, IM_ARRAYSIZE(carAttributes.Przeswit), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Przeswit", &carAttributes.Przeswit);
 
                 ImGui::Text("Pojemnosc Bagaznika:");
-                ImGui::InputText("##Pojemnosc_Bagaznika", carAttributes.Pojemnosc_Bagaznika, IM_ARRAYSIZE(carAttributes.Pojemnosc_Bagaznika), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Pojemnosc_Bagaznika", &carAttributes.Pojemnosc_Bagaznika);
 
                 ImGui::Text("Pojemnosc Silnika:");
-                ImGui::InputText("##Pojemnosc_Silnika", carAttributes.Pojemnosc_Silnika, IM_ARRAYSIZE(carAttributes.Pojemnosc_Silnika), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Pojemnosc_Silnika", &carAttributes.Pojemnosc_Silnika);
 
                 ImGui::Text("Typ silnika:");
-                ImGui::InputText("##Typ_silnika", carAttributes.Typ_silnika, IM_ARRAYSIZE(carAttributes.Typ_silnika), ImGuiInputTextFlags_CharsNoBlank);
+                static char typ_silnika_buffer[128];
+                strcpy(typ_silnika_buffer, carAttributes.Typ_silnika.c_str());
+                if (ImGui::InputText("##Typ_silnika", typ_silnika_buffer, IM_ARRAYSIZE(typ_silnika_buffer))) {
+                    carAttributes.Typ_silnika = typ_silnika_buffer;
+                }
 
                 ImGui::Text("Moc silnika:");
-                ImGui::InputText("##Moc_silnika", carAttributes.Moc_silnika, IM_ARRAYSIZE(carAttributes.Moc_silnika), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Moc_silnika", &carAttributes.Moc_silnika);
 
                 ImGui::Text("Moment obrotowy silnika:");
-                ImGui::InputText("##Moment_obrotowy_silnika", carAttributes.Moment_obrotowy_silnika, IM_ARRAYSIZE(carAttributes.Moment_obrotowy_silnika), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Moment_obrotowy_silnika", &carAttributes.Moment_obrotowy_silnika);
 
                 ImGui::Text("Montaz silnika:");
-                ImGui::InputText("##Montaz_silnika", carAttributes.Montaz_silnika, IM_ARRAYSIZE(carAttributes.Montaz_silnika), ImGuiInputTextFlags_CharsNoBlank);
+                static char montaz_silnika_buffer[128];
+                strcpy(montaz_silnika_buffer, carAttributes.Montaz_silnika.c_str());
+                if (ImGui::InputText("##Montaz_silnika", montaz_silnika_buffer, IM_ARRAYSIZE(montaz_silnika_buffer))) {
+                    carAttributes.Montaz_silnika = montaz_silnika_buffer;
+                }
 
                 ImGui::Text("Doladowanie:");
-                ImGui::InputText("##Doladowanie", carAttributes.Doladowanie, IM_ARRAYSIZE(carAttributes.Doladowanie), ImGuiInputTextFlags_CharsNoBlank);
+                static char doladowanie_buffer[128];
+                strcpy(doladowanie_buffer, carAttributes.Doladowanie.c_str());
+                if (ImGui::InputText("##Doladowanie", doladowanie_buffer, IM_ARRAYSIZE(doladowanie_buffer))) {
+                    carAttributes.Doladowanie = doladowanie_buffer;
+                }
 
                 ImGui::Text("Liczba cylindrow:");
-                ImGui::InputText("##Liczba_cylindrow", carAttributes.Liczba_cylindrow, IM_ARRAYSIZE(carAttributes.Liczba_cylindrow), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputInt("##Liczba_cylindrow", &carAttributes.Liczba_cylindrow);
 
                 ImGui::Text("Rodzaj wtrysku:");
-                ImGui::InputText("##Rodzaj_wtrysku", carAttributes.Rodzaj_wtrysku, IM_ARRAYSIZE(carAttributes.Rodzaj_wtrysku), ImGuiInputTextFlags_CharsNoBlank);
+                static char rodzaj_wtrysku_buffer[128];
+                strcpy(rodzaj_wtrysku_buffer, carAttributes.Rodzaj_wtrysku.c_str());
+                if (ImGui::InputText("##Rodzaj_wtrysku", rodzaj_wtrysku_buffer, IM_ARRAYSIZE(rodzaj_wtrysku_buffer))) {
+                    carAttributes.Rodzaj_wtrysku = rodzaj_wtrysku_buffer;
+                }
 
                 ImGui::Text("Rodzaj skrzyni biegow:");
-                ImGui::InputText("##Rodzaj_skrzyni_biegow", carAttributes.Rodzaj_skrzyni_biegow, IM_ARRAYSIZE(carAttributes.Rodzaj_skrzyni_biegow), ImGuiInputTextFlags_CharsNoBlank);
+                static char rodzaj_skrzyni_biegow_buffer[128];
+                strcpy(rodzaj_skrzyni_biegow_buffer, carAttributes.Rodzaj_skrzyni_biegow.c_str());
+                if (ImGui::InputText("##Rodzaj_skrzyni_biegow", rodzaj_skrzyni_biegow_buffer, IM_ARRAYSIZE(rodzaj_skrzyni_biegow_buffer))) {
+                    carAttributes.Rodzaj_skrzyni_biegow = rodzaj_skrzyni_biegow_buffer;
+                }
 
                 ImGui::Text("Liczba biegow:");
-                ImGui::InputText("##Liczba_biegow", carAttributes.Liczba_biegow, IM_ARRAYSIZE(carAttributes.Liczba_biegow), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputInt("##Liczba_biegow", &carAttributes.Liczba_biegow);
 
                 ImGui::Text("Naped:");
-                ImGui::InputText("##Naped", carAttributes.Naped, IM_ARRAYSIZE(carAttributes.Naped), ImGuiInputTextFlags_CharsNoBlank);
+                static char naped_buffer[128];
+                strcpy(naped_buffer, carAttributes.Naped.c_str());
+                if (ImGui::InputText("##Naped", naped_buffer, IM_ARRAYSIZE(naped_buffer))) {
+                    carAttributes.Naped = naped_buffer;
+                }
 
                 ImGui::Text("Predkosc maksymalna:");
-                ImGui::InputText("##Predkosc_maksymalna", carAttributes.Predkosc_maksymalna, IM_ARRAYSIZE(carAttributes.Predkosc_maksymalna), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Predkosc_maksymalna", &carAttributes.Predkosc_maksymalna);
 
                 ImGui::Text("Przyspieszenie:");
-                ImGui::InputText("##Przyspieszenie", carAttributes.Przyspieszenie, IM_ARRAYSIZE(carAttributes.Przyspieszenie), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Przyspieszenie", &carAttributes.Przyspieszenie);
 
-                ImGui::Text("Srednie spalanie:");
-                ImGui::InputText("##Srednie_spalanie", carAttributes.Srednie_spalanie, IM_ARRAYSIZE(carAttributes.Srednie_spalanie), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::Text("Srednia spalania:");
+                ImGui::InputDouble("##Srednia_spalania", &carAttributes.Srednie_spalanie);
 
                 ImGui::Text("Pojemnosc zbiornika paliwa:");
-                ImGui::InputText("##Pojemnosc_zbiornika_paliwa", carAttributes.Pojemnosc_zbiornika_paliwa, IM_ARRAYSIZE(carAttributes.Pojemnosc_zbiornika_paliwa), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Pojemnosc_zbiornika_paliwa", &carAttributes.Pojemnosc_zbiornika_paliwa);
 
                 ImGui::Text("Zasieg:");
-                ImGui::InputText("##Zasieg", carAttributes.Zasieg, IM_ARRAYSIZE(carAttributes.Zasieg), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Zasieg", &carAttributes.Zasieg);
 
                 ImGui::Text("Emisja Co2:");
-                ImGui::InputText("##Emisja_Co2", carAttributes.Emisja_Co2, IM_ARRAYSIZE(carAttributes.Emisja_Co2), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Emisja_Co2", &carAttributes.Emisja_Co2);
 
                 ImGui::Text("Masa:");
-                ImGui::InputText("##Masa", carAttributes.Masa, IM_ARRAYSIZE(carAttributes.Masa), ImGuiInputTextFlags_CharsNoBlank);
+                ImGui::InputDouble("##Masa", &carAttributes.Masa);
 
                 static bool show_error_message = false;
 
                 if (ImGui::Button("Dodaj"))
                 {
                     bool all_fields_filled = true;
-                    for (auto& field : { carAttributes.Marka, carAttributes.Model, carAttributes.Generacja, carAttributes.Nadwozie, carAttributes.Liczba_miejsc, carAttributes.Srednica_zawracania, carAttributes.Dlugosc, carAttributes.Szerokosc, carAttributes.Wysokosc, carAttributes.Rozstaw_osi, carAttributes.Przeswit, carAttributes.Pojemnosc_Bagaznika, carAttributes.Pojemnosc_Silnika, carAttributes.Typ_silnika, carAttributes.Moc_silnika, carAttributes.Moment_obrotowy_silnika, carAttributes.Montaz_silnika, carAttributes.Doladowanie, carAttributes.Liczba_cylindrow, carAttributes.Rodzaj_wtrysku, carAttributes.Rodzaj_skrzyni_biegow, carAttributes.Liczba_biegow, carAttributes.Naped, carAttributes.Predkosc_maksymalna, carAttributes.Przyspieszenie, carAttributes.Srednie_spalanie, carAttributes.Pojemnosc_zbiornika_paliwa, carAttributes.Zasieg, carAttributes.Emisja_Co2, carAttributes.Masa }) {
-                        if (strlen(field) == 0) {
+                    // SprawdŸ wszystkie pola typu std::string
+                    for (const auto& field : { carAttributes.Marka, carAttributes.Model, carAttributes.Nadwozie, carAttributes.Typ_silnika, carAttributes.Montaz_silnika, carAttributes.Doladowanie, carAttributes.Rodzaj_wtrysku, carAttributes.Rodzaj_skrzyni_biegow, carAttributes.Naped }) {
+                        if (field.empty()) {
                             all_fields_filled = false;
                             break;
+                        }
+                    }
+
+                    // SprawdŸ wszystkie pola numeryczne (int i double)
+                    if (all_fields_filled) {
+                        if (carAttributes.Generacja == 0 || carAttributes.Liczba_miejsc == 0 || carAttributes.Srednica_zawracania == 0.0 ||
+                            carAttributes.Dlugosc == 0.0 || carAttributes.Szerokosc == 0.0 || carAttributes.Wysokosc == 0.0 ||
+                            carAttributes.Rozstaw_osi == 0.0 || carAttributes.Przeswit == 0.0 || carAttributes.Pojemnosc_Bagaznika == 0.0 ||
+                            carAttributes.Pojemnosc_Silnika == 0.0 || carAttributes.Moc_silnika == 0.0 || carAttributes.Moment_obrotowy_silnika == 0.0 ||
+                            carAttributes.Liczba_cylindrow == 0 || carAttributes.Liczba_biegow == 0 || carAttributes.Predkosc_maksymalna == 0.0 ||
+                            carAttributes.Przyspieszenie == 0.0 || carAttributes.Srednie_spalanie == 0.0 || carAttributes.Pojemnosc_zbiornika_paliwa == 0.0 || carAttributes.Zasieg == 0.0 ||
+                            carAttributes.Emisja_Co2 == 0.0 || carAttributes.Masa == 0.0) {
+                            all_fields_filled = false;
                         }
                     }
 
@@ -506,28 +543,132 @@ namespace MojaApka
                 {
                     show_add = false;
                 }
- 
+
                 ImGui::End();
             }
 
-            ImGui::Separator();
-            ImGui::TextUnformatted(file_kryteria.c_str());
-
             // Filtrowanie zawartoœci pliku na podstawie wyszukiwanego tekstu
             ImGui::Separator();
-            if (!wyswietlany_tekst.empty()) {
-                for (const auto& line : lines) {
-                    if (line.find(wyswietlany_tekst) != std::string::npos) {
-                        ImGui::TextUnformatted(line.c_str());
+            if (ImGui::BeginTable("Car Table", 30, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_ScrollX)) {
+                // Nag³ówki tabeli
+                ImGui::TableSetupColumn("Marka");
+                ImGui::TableSetupColumn("Model");
+                ImGui::TableSetupColumn("Generacja");
+                ImGui::TableSetupColumn("Nadwozie");
+                ImGui::TableSetupColumn("Liczba miejsc");
+                ImGui::TableSetupColumn("Srednica zawracania");
+                ImGui::TableSetupColumn("Dlugosc");
+                ImGui::TableSetupColumn("Szerokosc");
+                ImGui::TableSetupColumn("Wysokosc");
+                ImGui::TableSetupColumn("Rozstaw osi");
+                ImGui::TableSetupColumn("Przeswit");
+                ImGui::TableSetupColumn("Pojemnosc bagaznika");
+                ImGui::TableSetupColumn("Pojemnosc silnika");
+                ImGui::TableSetupColumn("Typ silnika");
+                ImGui::TableSetupColumn("Moc silnika");
+                ImGui::TableSetupColumn("Moment obrotowy silnika");
+                ImGui::TableSetupColumn("Montaz silnika");
+                ImGui::TableSetupColumn("Doladowanie");
+                ImGui::TableSetupColumn("Liczba cylindrow");
+                ImGui::TableSetupColumn("Rodzaj wtrysku");
+                ImGui::TableSetupColumn("Rodzaj skrzyni biegow");
+                ImGui::TableSetupColumn("Liczba biegow");
+                ImGui::TableSetupColumn("Naped");
+                ImGui::TableSetupColumn("Predkosc maksymalna");
+                ImGui::TableSetupColumn("Przyspieszenie");
+                ImGui::TableSetupColumn("Srednie spalanie");
+                ImGui::TableSetupColumn("Pojemnosc zbiornika paliwa");
+                ImGui::TableSetupColumn("Zasieg");
+                ImGui::TableSetupColumn("Emisja CO2");
+                ImGui::TableSetupColumn("Masa");
+                ImGui::TableHeadersRow();
+
+                // Dane samochodów
+                for (const auto& car : cars) {
+                    // Sprawdzanie, czy wyszukiwany tekst pasuje do którejkolwiek wartoœci w wierszu
+                    std::ostringstream car_info;
+                    car_info << car.Marka << " " << car.Model << " " << car.Generacja << " "
+                        << car.Nadwozie << " " << car.Liczba_miejsc << " "
+                        << car.Srednica_zawracania << " " << car.Dlugosc << " "
+                        << car.Szerokosc << " " << car.Wysokosc << " " << car.Rozstaw_osi << " "
+                        << car.Przeswit << " " << car.Pojemnosc_Bagaznika << " "
+                        << car.Pojemnosc_Silnika << " " << car.Typ_silnika << " "
+                        << car.Moc_silnika << " " << car.Moment_obrotowy_silnika << " "
+                        << car.Montaz_silnika << " " << car.Doladowanie << " "
+                        << car.Liczba_cylindrow << " " << car.Rodzaj_wtrysku << " "
+                        << car.Rodzaj_skrzyni_biegow << " " << car.Liczba_biegow << " "
+                        << car.Naped << " " << car.Predkosc_maksymalna << " "
+                        << car.Przyspieszenie << " " << car.Srednie_spalanie << " "
+                        << car.Pojemnosc_zbiornika_paliwa << " " << car.Zasieg << " "
+                        << car.Emisja_Co2 << " " << car.Masa;
+
+                    if (wyswietlany_tekst.empty() || car_info.str().find(wyswietlany_tekst) != std::string::npos) {
+                        ImGui::TableNextRow();
+                        ImGui::TableSetColumnIndex(0);
+                        ImGui::TextUnformatted(car.Marka.c_str());
+                        ImGui::TableSetColumnIndex(1);
+                        ImGui::TextUnformatted(car.Model.c_str());
+                        ImGui::TableSetColumnIndex(2);
+                        ImGui::Text("%d", car.Generacja);
+                        ImGui::TableSetColumnIndex(3);
+                        ImGui::TextUnformatted(car.Nadwozie.c_str());
+                        ImGui::TableSetColumnIndex(4);
+                        ImGui::Text("%d", car.Liczba_miejsc);
+                        ImGui::TableSetColumnIndex(5);
+                        ImGui::Text("%.2f", car.Srednica_zawracania);
+                        ImGui::TableSetColumnIndex(6);
+                        ImGui::Text("%.2f", car.Dlugosc);
+                        ImGui::TableSetColumnIndex(7);
+                        ImGui::Text("%.2f", car.Szerokosc);
+                        ImGui::TableSetColumnIndex(8);
+                        ImGui::Text("%.2f", car.Wysokosc);
+                        ImGui::TableSetColumnIndex(9);
+                        ImGui::Text("%.2f", car.Rozstaw_osi);
+                        ImGui::TableSetColumnIndex(10);
+                        ImGui::Text("%.2f", car.Przeswit);
+                        ImGui::TableSetColumnIndex(11);
+                        ImGui::Text("%.2f", car.Pojemnosc_Bagaznika);
+                        ImGui::TableSetColumnIndex(12);
+                        ImGui::Text("%.2f", car.Pojemnosc_Silnika);
+                        ImGui::TableSetColumnIndex(13);
+                        ImGui::TextUnformatted(car.Typ_silnika.c_str());
+                        ImGui::TableSetColumnIndex(14);
+                        ImGui::Text("%.2f", car.Moc_silnika);
+                        ImGui::TableSetColumnIndex(15);
+                        ImGui::Text("%.2f", car.Moment_obrotowy_silnika);
+                        ImGui::TableSetColumnIndex(16);
+                        ImGui::TextUnformatted(car.Montaz_silnika.c_str());
+                        ImGui::TableSetColumnIndex(17);
+                        ImGui::TextUnformatted(car.Doladowanie.c_str());
+                        ImGui::TableSetColumnIndex(18);
+                        ImGui::Text("%d", car.Liczba_cylindrow);
+                        ImGui::TableSetColumnIndex(19);
+                        ImGui::TextUnformatted(car.Rodzaj_wtrysku.c_str());
+                        ImGui::TableSetColumnIndex(20);
+                        ImGui::TextUnformatted(car.Rodzaj_skrzyni_biegow.c_str());
+                        ImGui::TableSetColumnIndex(21);
+                        ImGui::Text("%d", car.Liczba_biegow);
+                        ImGui::TableSetColumnIndex(22);
+                        ImGui::TextUnformatted(car.Naped.c_str());
+                        ImGui::TableSetColumnIndex(23);
+                        ImGui::Text("%.2f", car.Predkosc_maksymalna);
+                        ImGui::TableSetColumnIndex(24);
+                        ImGui::Text("%.2f", car.Przyspieszenie);
+                        ImGui::TableSetColumnIndex(25);
+                        ImGui::Text("%.2f", car.Srednie_spalanie);
+                        ImGui::TableSetColumnIndex(26);
+                        ImGui::Text("%.2f", car.Pojemnosc_zbiornika_paliwa);
+                        ImGui::TableSetColumnIndex(27);
+                        ImGui::Text("%.2f", car.Zasieg);
+                        ImGui::TableSetColumnIndex(28);
+                        ImGui::Text("%.2f", car.Emisja_Co2);
+                        ImGui::TableSetColumnIndex(29);
+                        ImGui::Text("%.2f", car.Masa);
                     }
                 }
+
+                ImGui::EndTable();
             }
-            else {
-                for (const auto& line : lines) {
-                    ImGui::TextUnformatted(line.c_str());
-                }
-            }
-            //ImGui::TextUnformatted(file_content.c_str());
 
             if (ImGui::Button("Wroc"))
             {
@@ -544,7 +685,6 @@ namespace MojaApka
             ImGui::Text("Twoj profil");
             if (ImGui::Button("Edytuj"))
             {
-
             }
 
             if (ImGui::Button("Wroc"))
@@ -554,7 +694,6 @@ namespace MojaApka
 
             if (ImGui::Button("Wyloguj"))
             {
-
             }
             ImGui::End();
         }
@@ -581,6 +720,5 @@ namespace MojaApka
         ImGui::End();
 
         ImGui::End();
-
     }
 }
