@@ -143,6 +143,12 @@ namespace MojaApka
         static bool show_filtersort = false;
         static bool show_add = false;
 
+        static int choice_filtering = 0;
+        static int choice_min_max = 0;
+        static std::string search = "";
+        static double filtering_parameter = 0.0;
+        static std::vector<CarAttributes> filtered_cars;
+
         if (show_search == true)
         {
             ImGui::Begin("Wyszukiwarka", &show_search);
@@ -153,7 +159,7 @@ namespace MojaApka
             static string wyswietlany_tekst = "";
 
             // Wczytywanie zawartoœci wielu plików
-            static const std::string folder_path = "F:\\Project_PI_FINAL\\Projekt-PI\\examples\\example_win32_directx12\\Baza danych\\Dane\\"; //Baza danych\\Dane
+            static const std::string folder_path = "G:\\Project_PI_FINAL\\Projekt-PI\\examples\\example_win32_directx12\\Baza danych\\Dane\\"; //Baza danych\\Dane
             static std::vector<std::string> lines;
 
             if (refresh_files) {
@@ -312,12 +318,53 @@ namespace MojaApka
                     }
                 }
 
-                //Filtrowanie !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                ImGui::Separator();
+
+                ImGui::Text("Wybierz, jak chcesz filtrowac:");
+                ImGui::RadioButton("Marka", &choice_filtering, 1);
+                ImGui::RadioButton("Model", &choice_filtering, 2);
+                ImGui::RadioButton("Moc", &choice_filtering, 3);
+                ImGui::RadioButton("Iloœæ cylindrow", &choice_filtering, 4);
+
+                if (choice_filtering == 1) { // Filtrowanie po marce
+                    ImGui::Text("Podaj marke:");
+                    static char marka_buffer[128] = "";
+                    if (ImGui::InputText("##Marka", marka_buffer, IM_ARRAYSIZE(marka_buffer))) {
+                        search = marka_buffer;
+                    }
+                }
+
+                if (choice_filtering == 2) { // Filtrowanie po modelu
+                    ImGui::Text("Podaj model:");
+                    static char model_buffer[128] = "";
+                    if (ImGui::InputText("##Model", model_buffer, IM_ARRAYSIZE(model_buffer))) {
+                        search = model_buffer;
+                    }
+                }
+
+                if (choice_filtering == 3) { // Filtrowanie po mocy
+                    ImGui::Text("Wybierz zakres:");
+                    ImGui::RadioButton("Minimalna moc", &choice_min_max, 1);
+                    ImGui::RadioButton("Maksymalna moc", &choice_min_max, 2);
+                    ImGui::Text("Podaj wartosc mocy:");
+                    ImGui::InputDouble("##Moc", &filtering_parameter);
+                }
+
+                if (choice_filtering == 4) { // Filtrowanie po iloœci cylindrów
+                    ImGui::Text("Wybierz zakres:");
+                    ImGui::RadioButton("Minimalna ilosc cylindrow", &choice_min_max, 1);
+                    ImGui::RadioButton("Maksymalna ilosc cylindrow", &choice_min_max, 2);
+                    ImGui::Text("Podaj wartosc:");
+                    ImGui::InputDouble("##Cylindry", &filtering_parameter);
+                }
+
+                ImGui::Separator();
 
                 if (ImGui::Button("Wroc"))
                 {
                     show_filtersort = false;
                     selected_sort_option = -1;
+                    choice_filtering = 0;
                 }
 
                 ImGui::End();
@@ -585,24 +632,46 @@ namespace MojaApka
 
                 // Dane samochodów
                 for (const auto& car : cars) {
-                    // Sprawdzanie, czy wyszukiwany tekst pasuje do którejkolwiek wartoœci w wierszu
+                    bool match = true;
+
+                    // Filtrowanie wed³ug wyboru u¿ytkownika
+                    if (choice_filtering == 1 && !search.empty() && car.Marka != search) {
+                        match = false;
+                    }
+                    else if (choice_filtering == 2 && !search.empty() && car.Model != search) {
+                        match = false;
+                    }
+                    else if (choice_filtering == 3) {
+                        if ((choice_min_max == 1 && car.Moc_silnika < filtering_parameter) ||
+                            (choice_min_max == 2 && car.Moc_silnika > filtering_parameter)) {
+                            match = false;
+                        }
+                    }
+                    else if (choice_filtering == 4) {
+                        if ((choice_min_max == 1 && car.Liczba_cylindrow < filtering_parameter) ||
+                            (choice_min_max == 2 && car.Liczba_cylindrow > filtering_parameter)) {
+                            match = false;
+                        }
+                    }
+
+                    // Wyszukiwanie w wierszu
                     std::ostringstream car_info;
                     car_info << car.Marka << " " << car.Model << " " << car.Generacja << " "
-                        << car.Nadwozie << " " << car.Liczba_miejsc << " "
-                        << car.Srednica_zawracania << " " << car.Dlugosc << " "
-                        << car.Szerokosc << " " << car.Wysokosc << " " << car.Rozstaw_osi << " "
-                        << car.Przeswit << " " << car.Pojemnosc_Bagaznika << " "
-                        << car.Pojemnosc_Silnika << " " << car.Typ_silnika << " "
-                        << car.Moc_silnika << " " << car.Moment_obrotowy_silnika << " "
-                        << car.Montaz_silnika << " " << car.Doladowanie << " "
-                        << car.Liczba_cylindrow << " " << car.Rodzaj_wtrysku << " "
-                        << car.Rodzaj_skrzyni_biegow << " " << car.Liczba_biegow << " "
-                        << car.Naped << " " << car.Predkosc_maksymalna << " "
-                        << car.Przyspieszenie << " " << car.Srednie_spalanie << " "
-                        << car.Pojemnosc_zbiornika_paliwa << " " << car.Zasieg << " "
-                        << car.Emisja_Co2 << " " << car.Masa;
+                        << car.Nadwozie << " " << car.Liczba_miejsc << " " << car.Srednica_zawracania << " "
+                        << car.Dlugosc << " " << car.Szerokosc << " " << car.Wysokosc << " "
+                        << car.Rozstaw_osi << " " << car.Przeswit << " " << car.Pojemnosc_Bagaznika << " "
+                        << car.Pojemnosc_Silnika << " " << car.Typ_silnika << " " << car.Moc_silnika << " "
+                        << car.Moment_obrotowy_silnika << " " << car.Montaz_silnika << " " << car.Doladowanie << " "
+                        << car.Liczba_cylindrow << " " << car.Rodzaj_wtrysku << " " << car.Rodzaj_skrzyni_biegow << " "
+                        << car.Liczba_biegow << " " << car.Naped << " " << car.Predkosc_maksymalna << " "
+                        << car.Przyspieszenie << " " << car.Srednie_spalanie << " " << car.Pojemnosc_zbiornika_paliwa
+                        << " " << car.Zasieg << " " << car.Emisja_Co2 << " " << car.Masa;
 
-                    if (wyswietlany_tekst.empty() || car_info.str().find(wyswietlany_tekst) != std::string::npos) {
+                    if (!wyswietlany_tekst[0] == '\0' && car_info.str().find(wyswietlany_tekst) == std::string::npos) {
+                        match = false;
+                    }
+
+                    if (match) {
                         ImGui::TableNextRow();
                         ImGui::TableSetColumnIndex(0);
                         ImGui::TextUnformatted(car.Marka.c_str());
