@@ -1,6 +1,88 @@
-﻿  main.cpp
-G:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\main.cpp(68,15): warning C4100: "nShowCmd": parametr formalny, do którego nie istnieje odwołanie
-G:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\main.cpp(67,15): warning C4100: "lpCmdLine": parametr formalny, do którego nie istnieje odwołanie
-G:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\main.cpp(66,15): warning C4100: "hPrevInstance": parametr formalny, do którego nie istnieje odwołanie
-G:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\main.cpp(65,15): warning C4100: "hInstance": parametr formalny, do którego nie istnieje odwołanie
-  example_win32_directx12.vcxproj -> G:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Debug\example_win32_directx12.exe
+﻿  Aplikacja.cpp
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x5e3, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x5ea, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x71b, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x722, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0xcc2, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0xcc9, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0xdc3, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0xdcd, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x259d, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x2906, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x2936, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x2de8, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x3522, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x3791, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x37a6, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x37bd, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x37fa, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x37fb, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x3a96, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x3a9a, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x3a9d, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x3aa0, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x3aa3, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x3aa6, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x3aac, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x3aaf, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x3ab2, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x3b39, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x3b47, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x4bef, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x4d0b, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x4d0c, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x543e, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x54c2, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(1,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x54ce, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(62,33): warning C4244: "argument": konwersja z "int" do "_Elem", możliwa utrata danych
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(62,33): warning C4244:         with
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(62,33): warning C4244:         [
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(62,33): warning C4244:             _Elem=char
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(62,33): warning C4244:         ]
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(72,33): warning C4244: "argument": konwersja z "int" do "_Elem", możliwa utrata danych
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(72,33): warning C4244:         with
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(72,33): warning C4244:         [
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(72,33): warning C4244:             _Elem=char
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(72,33): warning C4244:         ]
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(120,47): warning C4459: deklaracja „cars” powoduje ukrycie deklaracji globalnej
+      F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(53,28):
+      zobacz deklarację „cars”
+  
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(135,48): warning C4459: deklaracja „cars” powoduje ukrycie deklaracji globalnej
+      F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(53,28):
+      zobacz deklarację „cars”
+  
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(628,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x72cb, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(628,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x7411, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(628,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x7a09, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(628,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x7b42, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(628,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x7c7c, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(628,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x7dbc, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(628,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x7ef4, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(628,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x8190, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(628,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x8191, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(628,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x8687, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(628,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0x8692, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(628,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0xa318, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(628,1): warning C4828: Plik zawiera znak rozpoczynający się od przesunięcia 0xa538, który jest niedozwolony w bieżącym zestawie znaków źródła (strona kodowa 65001).
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(640,60): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(645,60): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(650,60): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(655,60): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(660,60): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(665,60): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(670,60): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(675,60): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(680,60): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(685,60): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(690,60): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(757,17): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(764,17): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(774,17): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(808,17): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(821,17): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(828,17): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(838,17): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(845,17): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Aplikacja.cpp(855,17): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  example_win32_directx12.vcxproj -> F:\Project_PI_FINAL\Projekt-PI\examples\example_win32_directx12\Debug\example_win32_directx12.exe
