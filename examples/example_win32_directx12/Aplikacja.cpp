@@ -222,6 +222,11 @@ namespace MojaApka
         static double filtering_parameter = 0.0;
         static std::vector<CarAttributes> filtered_cars;
 
+        // Zawartoœæ okna logowania
+        static char login[128] = "";
+        static char password[128] = "";
+        static std::string message = "";
+
         if (show_login == true) {
             ImGui::Begin("Logowanie", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize);
 
@@ -232,11 +237,6 @@ namespace MojaApka
 
             // Œrodek pionowy
             ImGui::SetCursorPosY(content_size.y * 0.2f); // 20% poni¿ej górnej krawêdzi
-
-            // Zawartoœæ okna
-            static char login[128] = "";
-            static char password[128] = "";
-            static std::string message = "";
 
             // Wycentrowanie pola "Login"
             ImGui::SetCursorPosX(center_x);
@@ -1091,36 +1091,152 @@ namespace MojaApka
 
             ImGui::Text("Twoj profil");
 
+            static bool is_editing = false;
+            static char new_login[128];
+            static char new_email[128];
+            static char new_password[128];
+            static char confirm_password[128];
+            static std::string error_message = "";
+
+            // Wyœwietlanie danych profilu (tryb podgl¹du)
             ImGui::Text("Zalogowany jako:");
-            ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "%s", current_user.c_str());
+            if (!is_editing)
+                ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "%s", current_user.c_str());
+            else
+                ImGui::InputText("##new_login", new_login, IM_ARRAYSIZE(new_login));
 
             ImGui::Text("Email:");
-            ImGui::TextColored(ImVec4(0.0f, 1.0f, 1.0f, 1.0f), "%s", current_email.c_str());
+            if (!is_editing)
+                ImGui::TextColored(ImVec4(0.0f, 1.0f, 1.0f, 1.0f), "%s", current_email.c_str());
+            else
+                ImGui::InputText("##new_email", new_email, IM_ARRAYSIZE(new_email));
 
             ImGui::Text("Data urodzenia:");
             ImGui::TextColored(ImVec4(0.0f, 1.0f, 1.0f, 1.0f), "%s", current_birth_date.c_str());
 
+            if (is_editing)
+            {
+                ImGui::Separator();
+
+                ImGui::Text("Nowe Haslo:");
+                ImGui::InputText("##new_password", new_password, IM_ARRAYSIZE(new_password), ImGuiInputTextFlags_Password);
+
+                ImGui::Text("Potwierdz Haslo:");
+                ImGui::InputText("##confirm_password", confirm_password, IM_ARRAYSIZE(confirm_password), ImGuiInputTextFlags_Password);
+
+                ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "%s", error_message.c_str());
+            }
+
             ImGui::Separator();
-            if (ImGui::Button("Edytuj"))
+
+            if (is_editing)
             {
-                // Funkcjonalnoœæ edycji profilu
+                if (ImGui::Button("Zatwierdz"))
+                {
+                    // Walidacja danych
+                    if (std::string(new_password) != std::string(confirm_password))
+                    {
+                        error_message = "Hasla sie nie zgadzaja!";
+                    }
+                    else if (!IsLoginUnique(new_login) && current_user != std::string(new_login))
+                    {
+                        error_message = "Login jest juz zajety!";
+                    }
+                    else if (!IsPasswordValid(new_password) && std::string(new_password).length() > 0)
+                    {
+                        error_message = "Haslo nie spelnia wymagan!";
+                    }
+                    else
+                    {
+                        // Zapisz nowe dane
+                        std::ifstream file_in("users.txt");
+                        std::ofstream file_out("users_temp.txt");
+                        std::string line;
+
+                        while (std::getline(file_in, line))
+                        {
+                            std::istringstream iss(line);
+                            std::string stored_login, stored_email, birth_date, stored_password;
+
+                            if (std::getline(iss, stored_login, ',') &&
+                                std::getline(iss, stored_email, ',') &&
+                                std::getline(iss, birth_date, ',') &&
+                                std::getline(iss, stored_password))
+                            {
+                                if (stored_login == current_user)
+                                {
+                                    // Zmieñ dane aktualnego u¿ytkownika
+                                    file_out << new_login << ","
+                                        << new_email << ","
+                                        << birth_date << ","
+                                        << (std::string(new_password).empty() ? stored_password : EncryptPassword(new_password))
+                                        << "\n";
+
+                                    current_user = new_login;
+                                    current_email = new_email;
+                                }
+                                else
+                                {
+                                    file_out << line << "\n";
+                                }
+                            }
+                        }
+                        file_in.close();
+                        file_out.close();
+
+                        // Zast¹p stary plik nowym
+                        if (std::rename("users_temp.txt", "users.txt") != 0) {
+                            std::perror("B³¹d zmiany nazwy pliku");
+                        }
+                        else {
+                            std::cout << "Plik zmieniony poprawnie." << std::endl;
+                        }
+
+                        is_editing = false;
+                        error_message = "Dane zostaly zapisane!";
+                    }
+                }
+
+                if (ImGui::Button("Anuluj"))
+                {
+                    is_editing = false;
+                    error_message.clear();
+                }
+            }
+            else
+            {
+                if (ImGui::Button("Edytuj"))
+                {
+                    // W³¹cz tryb edycji i wype³nij pola
+                    is_editing = true;
+                    strncpy(new_login, current_user.c_str(), IM_ARRAYSIZE(new_login));
+                    strncpy(new_email, current_email.c_str(), IM_ARRAYSIZE(new_email));
+                    memset(new_password, 0, sizeof(new_password));
+                    memset(confirm_password, 0, sizeof(confirm_password));
+                    error_message.clear();
+                }
+
+                if (ImGui::Button("Wroc"))
+                {
+                    show_profile = false;
+                    show_profile_bar = true;
+                }
+
+                if (ImGui::Button("Wyloguj"))
+                {
+                    current_user = "";
+                    current_email = "";
+                    current_birth_date = ""; // Resetowanie danych u¿ytkownika po wylogowaniu
+                    show_search = false;
+                    show_profile = false;
+                    show_login = true;
+                    // Wyczyœæ zawartoœæ loginu, has³a i komunikatu
+                    memset(login, 0, sizeof(login));      // Zerowanie bufora loginu
+                    memset(password, 0, sizeof(password)); // Zerowanie bufora has³a
+                    message.clear();
+                }
             }
 
-            if (ImGui::Button("Wroc"))
-            {
-                show_profile = false;
-                show_profile_bar = true;
-            }
-
-            if (ImGui::Button("Wyloguj"))
-            {
-                current_user = "";
-                current_email = "";
-                current_birth_date = ""; // Resetowanie danych u¿ytkownika po wylogowaniu
-                show_search = false;
-                show_profile = false;
-                show_login = true;
-            }
             ImGui::End();
         }
 
