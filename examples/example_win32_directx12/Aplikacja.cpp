@@ -11,9 +11,9 @@
 #include "filesystem"
 #include "algorithm"
 #include "functional"
-#include <regex>
-#include <locale>
-#include <codecvt>
+#include "regex"
+#include "locale"
+#include "codecvt"
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -51,6 +51,9 @@ struct CarAttributes {
     double Masa = 0.0;
 };
 std::vector<CarAttributes> cars;
+static std::string current_user = "";
+static std::string current_email = "";
+static std::string current_birth_date = "";
 
 namespace MojaApka
 {
@@ -220,19 +223,65 @@ namespace MojaApka
         static std::vector<CarAttributes> filtered_cars;
 
         if (show_login == true) {
-            ImGui::Begin("Logowanie");
+            ImGui::Begin("Logowanie", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize);
 
+            // Rozmiar okna i obliczanie pozycji centralnej
+            ImVec2 window_size = ImGui::GetWindowSize();
+            ImVec2 content_size = ImGui::GetContentRegionAvail();
+            float center_x = (content_size.x - 200) / 2.0f; // 200 to szerokoœæ elementów (dopasuj do potrzeb)
+
+            // Œrodek pionowy
+            ImGui::SetCursorPosY(content_size.y * 0.2f); // 20% poni¿ej górnej krawêdzi
+
+            // Zawartoœæ okna
             static char login[128] = "";
             static char password[128] = "";
             static std::string message = "";
 
-            ImGui::Text("Podaj dane logowania:");
-            ImGui::InputText("Login", login, IM_ARRAYSIZE(login));
-            ImGui::InputText("Haslo", password, IM_ARRAYSIZE(password), ImGuiInputTextFlags_Password);
+            // Wycentrowanie pola "Login"
+            ImGui::SetCursorPosX(center_x);
+            ImGui::Text("Login");
+            ImGui::SetCursorPosX(center_x);
+            ImGui::InputText("##login", login, IM_ARRAYSIZE(login));
 
-            if (ImGui::Button("Zaloguj")) {
+            // Wycentrowanie pola "Has³o"
+            ImGui::SetCursorPosX(center_x);
+            ImGui::Text("Haslo");
+            ImGui::SetCursorPosX(center_x);
+            ImGui::InputText("##password", password, IM_ARRAYSIZE(password), ImGuiInputTextFlags_Password);
+
+            // Wyœwietlanie komunikatu b³êdu
+            if (!message.empty()) {
+                ImGui::SetCursorPosX(center_x);
+                ImGui::TextColored(ImVec4(1, 0, 0, 1), "%s", message.c_str());
+            }
+
+            // Przyciski "Zaloguj" i "Zarejestruj" obok siebie
+            ImGui::SetCursorPosX(center_x);
+            if (ImGui::Button("Zaloguj", ImVec2(100, 30))) {
                 if (VerifyLogin(login, password)) {
-                    message = "Zalogowano pomyslnie!";
+                    current_user = login;
+
+                    // Odczyt danych z pliku
+                    std::ifstream file("users.txt");
+                    std::string line;
+                    while (std::getline(file, line)) {
+                        std::istringstream iss(line);
+                        std::string stored_login, stored_email, birth_date, stored_password;
+
+                        if (std::getline(iss, stored_login, ',') &&
+                            std::getline(iss, stored_email, ',') &&
+                            std::getline(iss, birth_date, ',') &&
+                            std::getline(iss, stored_password)) {
+                            if (stored_login == login) {
+                                current_email = stored_email;
+                                current_birth_date = birth_date;
+                                break;
+                            }
+                        }
+                    }
+                    file.close();
+
                     show_login = false;
                     show_search = true;
                     show_profile_bar = true;
@@ -242,14 +291,15 @@ namespace MojaApka
                 }
             }
 
-            ImGui::TextColored(ImVec4(1, 0, 0, 1), "%s", message.c_str());
-
-            if (ImGui::Button("Zarejestruj")) {
+            ImGui::SameLine();
+            if (ImGui::Button("Zarejestruj", ImVec2(100, 30))) {
                 show_register = true;
                 show_login = false;
             }
 
-            if (ImGui::Button("Wyjscie")) {
+            // Przycisk "Wyjœcie" na œrodku pod przyciskami
+            ImGui::SetCursorPosX(center_x);
+            if (ImGui::Button("Wyjscie", ImVec2(208, 30))) {
                 exit(0);
             }
 
@@ -259,13 +309,18 @@ namespace MojaApka
         if (show_register == true) {
             ImGui::Begin("Rejestracja");
 
+            // Rozmiar okna i pozycjonowanie
+            ImVec2 window_size = ImGui::GetWindowSize();
+            float center_x = window_size.x / 2.0f;
+
+            // Zmienne dla pól wejœciowych
             static char login[128] = "";
             static char email[128] = "";
             static char password[128] = "";
             static char confirm_password[128] = "";
             static std::string error_message = "";
 
-            // Pola do wprowadzenia daty urodzenia
+            // Zmienne dla daty urodzenia
             static int day = 1;
             static int selected_month = 0; // Indeks wybranego miesi¹ca
             static int year = 2000; // Domyœlny rok
@@ -274,11 +329,55 @@ namespace MojaApka
                 "Lipiec", "Sierpien", "Wrzesien", "Pazdziernik", "Listopad", "Grudzien"
             };
 
+            // Szerokoœæ inputów
+            float input_width = 200.0f; // Nowa szerokoœæ inputów
+            // Offset dla labeli
+            float login_offset = center_x - (input_width / 2) + 80.0;
+            float email_offset = center_x - (input_width / 2) + 80.0;
+            float password_offset = center_x - (input_width / 2) + 80.0;
+            float confirm_password_offset = center_x - (input_width / 2) + 55.0;
+            float date_offset = center_x - (input_width / 2) + 50.0;
+            float error_offset = center_x - (input_width / 2) + 10.0;
+            float input_offset = center_x - (input_width / 2);         // Offset dla inputów
+
+            // Nag³ówek
+            ImGui::SetCursorPosX(center_x - 95.0f);
             ImGui::Text("Podaj dane do rejestracji:");
-            ImGui::InputText("Login", login, IM_ARRAYSIZE(login));
-            ImGui::InputText("Email", email, IM_ARRAYSIZE(email));
-            ImGui::InputText("Haslo", password, IM_ARRAYSIZE(password), ImGuiInputTextFlags_Password);
-            ImGui::InputText("Powtorz haslo", confirm_password, IM_ARRAYSIZE(confirm_password), ImGuiInputTextFlags_Password);
+
+            // Login
+            ImGui::SetCursorPosX(login_offset);
+            ImGui::Text("Login");
+            ImGui::SetCursorPosX(input_offset);
+            ImGui::SetNextItemWidth(input_width);
+            ImGui::InputText("##login", login, IM_ARRAYSIZE(login));
+
+            // Email
+            ImGui::SetCursorPosX(email_offset);
+            ImGui::Text("Email");
+            ImGui::SetCursorPosX(input_offset);
+            ImGui::SetNextItemWidth(input_width);
+            ImGui::InputText("##email", email, IM_ARRAYSIZE(email));
+
+            // Has³o
+            ImGui::SetCursorPosX(password_offset);
+            ImGui::Text("Haslo");
+            ImGui::SetCursorPosX(input_offset);
+            ImGui::SetNextItemWidth(input_width);
+            ImGui::InputText("##password", password, IM_ARRAYSIZE(password), ImGuiInputTextFlags_Password);
+
+            // Powtórz has³o
+            ImGui::SetCursorPosX(confirm_password_offset);
+            ImGui::Text("Powtorz haslo");
+            ImGui::SetCursorPosX(input_offset);
+            ImGui::SetNextItemWidth(input_width);
+            ImGui::InputText("##confirm_password", confirm_password, IM_ARRAYSIZE(confirm_password), ImGuiInputTextFlags_Password);
+
+            // Data urodzenia
+            ImGui::SetCursorPosX(date_offset);
+            ImGui::Text("Data urodzenia");
+
+            ImGui::SetCursorPosX(input_offset);
+            ImGui::SetNextItemWidth(input_width);
             if (ImGui::BeginCombo("Dzien", std::to_string(day).c_str())) {
                 for (int i = 1; i <= 31; i++) {
                     bool is_selected = (day == i);
@@ -292,7 +391,8 @@ namespace MojaApka
                 ImGui::EndCombo();
             }
 
-            // Rozwijana lista miesiêcy
+            ImGui::SetCursorPosX(input_offset);
+            ImGui::SetNextItemWidth(input_width);
             if (ImGui::BeginCombo("Miesiac", months[selected_month])) {
                 for (int i = 0; i < 12; i++) {
                     bool is_selected = (selected_month == i);
@@ -306,7 +406,8 @@ namespace MojaApka
                 ImGui::EndCombo();
             }
 
-            // Rozwijana lista lat
+            ImGui::SetCursorPosX(input_offset);
+            ImGui::SetNextItemWidth(input_width);
             if (ImGui::BeginCombo("Rok", std::to_string(year).c_str())) {
                 for (int i = 2025; i >= 1900; i--) {
                     bool is_selected = (year == i);
@@ -320,7 +421,10 @@ namespace MojaApka
                 ImGui::EndCombo();
             }
 
-            if (ImGui::Button("Zarejestruj")) {
+            // Przycisk "Zarejestruj"
+            ImGui::SetCursorPosX(input_offset);
+            ImGui::SetNextItemWidth(input_width);
+            if (ImGui::Button("Zarejestruj", ImVec2(input_width, 30.0f))) {
                 if (std::string(password) != std::string(confirm_password)) {
                     error_message = "Hasla sie nie zgadzaja!";
                 }
@@ -341,9 +445,14 @@ namespace MojaApka
                 }
             }
 
+            // Wyœwietlanie b³êdów
+            ImGui::SetCursorPosX(error_offset);
             ImGui::TextColored(ImVec4(1, 0, 0, 1), "%s", error_message.c_str());
 
-            if (ImGui::Button("Logowanie")) {
+            // Przycisk "Logowanie"
+            ImGui::SetCursorPosX(input_offset);
+            ImGui::SetNextItemWidth(input_width);
+            if (ImGui::Button("Logowanie", ImVec2(input_width, 30.0f))) {
                 show_register = false;
                 show_login = true;
             }
@@ -966,11 +1075,11 @@ namespace MojaApka
                 ImGui::End();
             }
 
-            if (ImGui::Button("Wroc"))
+            if (ImGui::Button("Wyjsce"))
             {
-                show_search = false;
-                show_login = true;
-                //exit(0);
+                //show_search = false;
+                //show_login = true;
+                exit(0);
             }
 
             ImGui::End();
@@ -981,8 +1090,20 @@ namespace MojaApka
             ImGui::Begin("Profil", &show_profile);
 
             ImGui::Text("Twoj profil");
+
+            ImGui::Text("Zalogowany jako:");
+            ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "%s", current_user.c_str());
+
+            ImGui::Text("Email:");
+            ImGui::TextColored(ImVec4(0.0f, 1.0f, 1.0f, 1.0f), "%s", current_email.c_str());
+
+            ImGui::Text("Data urodzenia:");
+            ImGui::TextColored(ImVec4(0.0f, 1.0f, 1.0f, 1.0f), "%s", current_birth_date.c_str());
+
+            ImGui::Separator();
             if (ImGui::Button("Edytuj"))
             {
+                // Funkcjonalnoœæ edycji profilu
             }
 
             if (ImGui::Button("Wroc"))
@@ -993,6 +1114,9 @@ namespace MojaApka
 
             if (ImGui::Button("Wyloguj"))
             {
+                current_user = "";
+                current_email = "";
+                current_birth_date = ""; // Resetowanie danych u¿ytkownika po wylogowaniu
                 show_search = false;
                 show_profile = false;
                 show_login = true;

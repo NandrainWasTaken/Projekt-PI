@@ -18338,7 +18338,7 @@ static void ImGui::DockNodeUpdateTabBar(ImGuiDockNode* node, ImGuiWindow* host_w
 
     const bool node_was_active = (node->LastFrameActive + 1 == g.FrameCount);
     const bool closed_all = node->WantCloseAll && node_was_active;
-    const ImGuiID closed_one = node->WantCloseTabId && node_was_active;
+    const ImGuiID closed_one = node->WantCloseTabId & node_was_active;
     node->WantCloseAll = false;
     node->WantCloseTabId = 0;
 
