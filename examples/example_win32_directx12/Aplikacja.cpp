@@ -233,7 +233,7 @@ namespace MojaApka
             // Rozmiar okna i obliczanie pozycji centralnej
             ImVec2 window_size = ImGui::GetWindowSize();
             ImVec2 content_size = ImGui::GetContentRegionAvail();
-            float center_x = (content_size.x - 200) / 2.0f; // 200 to szerokoœæ elementów (dopasuj do potrzeb)
+            float center_x = (content_size.x - 200) / 2.0f; // 200 to szerokoœæ elementów
 
             // Œrodek pionowy
             ImGui::SetCursorPosY(content_size.y * 0.2f); // 20% poni¿ej górnej krawêdzi
@@ -487,7 +487,7 @@ namespace MojaApka
             static string wyswietlany_tekst = "";
 
             // Wczytywanie zawartoœci wielu plików
-            static const std::string folder_path = "F:\\Project_PI_FINAL\\Projekt-PI\\examples\\example_win32_directx12\\Baza danych\\Dane\\"; //Baza danych\\Dane
+            static const std::string folder_path = "G:\\Project_PI_FINAL\\Projekt-PI\\examples\\example_win32_directx12\\Baza danych\\Dane\\"; //Baza danych\\Dane
             static std::vector<std::string> lines;
 
             if (refresh_files) {
@@ -810,7 +810,7 @@ namespace MojaApka
                 ImGui::RadioButton("Marka", &choice_filtering, 1);
                 ImGui::RadioButton("Model", &choice_filtering, 2);
                 ImGui::RadioButton("Moc", &choice_filtering, 3);
-                ImGui::RadioButton("Iloœæ cylindrow", &choice_filtering, 4);
+                ImGui::RadioButton("Ilosc cylindrow", &choice_filtering, 4);
 
                 if (choice_filtering == 1) { // Filtrowanie po marce
                     ImGui::Text("Podaj marke:");
@@ -993,7 +993,11 @@ namespace MojaApka
                 {
                     bool all_fields_filled = true;
                     // SprawdŸ wszystkie pola typu std::string
-                    for (const auto& field : { carAttributes.Marka, carAttributes.Model, carAttributes.Nadwozie, carAttributes.Typ_silnika, carAttributes.Montaz_silnika, carAttributes.Doladowanie, carAttributes.Rodzaj_wtrysku, carAttributes.Rodzaj_skrzyni_biegow, carAttributes.Naped }) {
+                    for (const auto& field : { carAttributes.Marka, carAttributes.Model,
+                        carAttributes.Nadwozie, carAttributes.Typ_silnika,
+                        carAttributes.Montaz_silnika, carAttributes.Doladowanie,
+                        carAttributes.Rodzaj_wtrysku, carAttributes.Rodzaj_skrzyni_biegow,
+                        carAttributes.Naped }) {
                         if (field.empty()) {
                             all_fields_filled = false;
                             break;
@@ -1185,11 +1189,15 @@ namespace MojaApka
                         file_out.close();
 
                         // Zast¹p stary plik nowym
-                        if (std::rename("users_temp.txt", "users.txt") != 0) {
-                            std::perror("B³¹d zmiany nazwy pliku");
+                        if (std::rename("users.txt", "users_previous.txt") != 0) {
+                            std::perror("B³¹d zmiany nazwy oryginalnego pliku users.txt");
+                        }
+                        else if (std::rename("users_temp.txt", "users.txt") != 0) {
+                            std::perror("B³¹d zmiany nazwy pliku tymczasowego na users.txt");
+                            std::remove("users_previous.txt"); // Usuñ backup tylko jeœli rename siê nie powiód³
                         }
                         else {
-                            std::cout << "Plik zmieniony poprawnie." << std::endl;
+                            std::remove("users_previous.txt"); // Usuñ backup po pomyœlnym zast¹pieniu pliku
                         }
 
                         is_editing = false;
